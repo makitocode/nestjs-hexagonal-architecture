@@ -2,12 +2,14 @@ import { ConflictException, Injectable, InternalServerErrorException } from '@ne
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../../../users/application/services/user.service';
 import * as bcrypt from 'bcrypt';
+import { SecureHttpService } from 'src/shared/infrastructure/secure.http-service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    private readonly secureHttpService: SecureHttpService,
   ) { }
 
   async validateUser(username: string, password: string): Promise<any> {
@@ -16,6 +18,7 @@ export class AuthService {
       const { password, ...result } = user;
       return result;
     }
+    //const rsponse = this.secureHttpService
     return null;
   }
 
